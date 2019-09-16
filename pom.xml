@@ -1,0 +1,124 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.github.gdiazs</groupId>
+	<artifactId>microprofile-vuejs-pom</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<tomee.version>8.0.0-M3</tomee.version>
+		<frontend-plugins>1.8</frontend-plugins>
+		<microprofile.version>2.1</microprofile.version>
+		<maven.compiler.plugin>3.8.1</maven.compiler.plugin>
+		<maven-war-plugin>3.2.3</maven-war-plugin>
+		<maven.resource.plugin>3.1.0</maven.resource.plugin>
+	</properties>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.microprofile</groupId>
+			<artifactId>microprofile</artifactId>
+			<version>${microprofile.version}</version>
+			<type>pom</type>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.github.eirslett</groupId>
+					<artifactId>frontend-plugins</artifactId>
+					<version>${frontend-plugins}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+					</configuration>
+					<version>${maven.compiler.plugin}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${maven-war-plugin}</version>
+					<configuration>
+						<warSourceExcludes>node_modules/**,tests/**,src/**,babel.config.js,package-lock.json,*.config.js,dist/**,.browserslistrc,.eslintrc.js,public/**,package.json,README.md,.gitignore</warSourceExcludes>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven.resource.plugin}</version>
+					<executions>
+						<execution>
+							<id>Copy frontend build to target</id>
+							<phase>process-resources</phase>
+							<goals>
+								<goal>copy-resources</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${basedir}/target/${project.artifactId}-${project.version}</outputDirectory>
+								<resources>
+									<resource>
+										<directory>${basedir}/src/main/webapp/dist</directory>
+									</resource>
+								</resources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.tomee.maven</groupId>
+					<artifactId>tomee-maven-plugin</artifactId>
+					<version>${tomee.version}</version>
+					<executions>
+						<execution>
+							<id>executable-jar</id>
+							<phase>package</phase>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<config>${project.basedir}/src/main/resources</config>
+						<tomeeClassifier>microprofile</tomeeClassifier>
+						<webapps>
+							<webapp>${project.groupId}:${project.artifactId}:${project.version}?name=ROOT</webapp>
+						</webapps>
+					</configuration>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
