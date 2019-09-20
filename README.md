@@ -4,7 +4,7 @@ It handles under the hood some common maven plugins in order to package a web vu
 
 # What it does?
 
-It gonna remove from the war/jar package distribution all the dev dependencies in webapp directory and only package the final built vuejs app.
+It gonna remove from the war/jar package distribution all the dev dependencies in webapp directory and only will package the final built vuejs app (dist files).
 
 ### Getting Started
 
