@@ -1,4 +1,5 @@
-# microprofile-vuejs-pom-
+# microprofile-vuejs-pom
+
 It handles under the hood some common maven plugins in order to package a web vuejs app with Microprofile using TOMEE. The main goal is to follow the Backend for frontend approach  https://samnewman.io/patterns/architectural/bff/
 
 # What it does?
