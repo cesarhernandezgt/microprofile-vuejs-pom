@@ -1,0 +1,1 @@
+# microprofile-vuejs-pom
