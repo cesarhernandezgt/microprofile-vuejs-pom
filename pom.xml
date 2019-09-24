@@ -11,7 +11,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<tomee.version>8.0.0-M3</tomee.version>
+		<tomee.version>8.0.0</tomee.version>
 		<frontend-plugins>1.8</frontend-plugins>
 		<microprofile.version>2.1</microprofile.version>
 		<maven.compiler.plugin>3.8.1</maven.compiler.plugin>
